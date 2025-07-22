@@ -10,11 +10,10 @@ to get all of user named {name} information about his/her repositories and commi
 
 <h3> Tech stack </h3>
 
-- Java 17
+- Java 21
 - Maven
 - Spring-boot
 - Lombok
-- Jackson
 - Gson
 
 <h3> Author </h3>

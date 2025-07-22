@@ -1,25 +1,16 @@
 package com.boczar.RepositoryAPI.util;
 
 import com.boczar.RepositoryAPI.model.Branch;
-import com.google.gson.Gson;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-@Component
+@Service
 public class BranchService {
 
-    public Branch[] getBranchesByRepoName(String login, String repoName) throws IOException {
+    private final RestTemplate restTemplate = new RestTemplate();
 
-        URL url = new URL("https://api.github.com/repos/" + login + "/" + repoName + "/branches");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        InputStream response = connection.getInputStream();
-        String body = new String(response.readAllBytes());
-
-        Gson gson = new Gson();
-
-        return gson.fromJson(body, Branch[].class);
+    public Branch[] getBranchesByRepoName(String login, String repoName) {
+        String url = "https://api.github.com/repos/" + login + "/" + repoName + "/branches";
+        return restTemplate.getForObject(url, Branch[].class);
     }
 }
